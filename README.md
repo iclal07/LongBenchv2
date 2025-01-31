@@ -37,12 +37,12 @@ HF_TOKEN=your_huggingface_token
 
 ### Temel Kullanım
 ```sh
-python pred_merged.py --model gpt-4 --save_dir results
+python pred.py --model gpt-4 --save_dir results
 ```
 
 ### Özel API URL'si Kullanımı
 ```sh
-python pred_merged.py --model qwen --base_url http://custom-url.com/v1
+python pred.py --model qwen --base_url http://custom-url.com/v1
 ```
 
 📌 **Not:** Eğer `--base_url` girilmezse **varsayılan olarak** `http://localhost:8000/v1` kullanılacaktır.
