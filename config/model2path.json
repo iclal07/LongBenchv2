@@ -9,5 +9,7 @@
     "Mistral-Large-Instruct-2407": "mistralai/Mistral-Large-Instruct-2407",
     "Mistral-Large-Instruct-2411": "mistralai/Mistral-Large-Instruct-2411",
     "c4ai-command-r-plus-08-2024": "CohereForAI/c4ai-command-r-plus-08-2024",
-    "glm-4-plus": "THUDM/glm-4-9b-chat"
+    "glm-4-plus": "THUDM/glm-4-9b-chat",
+    "Qwen2.5-14B-Instruct-1M": "Qwen/Qwen2.5-14B-Instruct-1M",
+    "gemini-2.0-flash-exp" :"gemini-2.0-flash-exp"
 }
