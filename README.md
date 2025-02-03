@@ -51,7 +51,7 @@ Bu çalışmada **Gemini2.0 Flash Experimental** ve **Qwen2.5-14B-Instruct-1M** 
 
 ## 📊 Performans Tablosu
 
-Aşağıda, LongBench v2 sıralamasına dair güncel performans sonuçları paylaşılmıştır. **Gemini2.0 Flash Experimental**, LongBench v2 liderlik tablosunda etkileyici bir sıralama elde etmiştir.
+Aşağıda, LongBench v2 sıralamasına dair güncel performans sonuçları paylaşılmıştır. **Qwen2.5-14B-Instruct-1M**, 14B parametreli daha küçük bir model olmasına rağmen, LongBench v2 liderlik tablosunda büyük ölçekli modellere yakın bir performans sergileyerek etkileyici bir sıralama elde etmiştir.
 
 | Model                     | Params | Context  | Overall (%) | Easy (%) | Hard (%) | Short (%) | Medium (%) | Long (%) |
 |---------------------------|--------|----------|-------------|----------|----------|-----------|------------|----------|
