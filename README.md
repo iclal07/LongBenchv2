@@ -40,10 +40,10 @@ Bu sürümde **Gemini2.0 Flash Experimental** ve **Qwen2.5-14B-Instruct-1M** mod
 Bu çalışmada **Gemini2.0 Flash Experimental** ve **Qwen2.5-14B-Instruct-1M** modelleri kullanıldı. Aşağıdaki grafikler, **Chain-of-Thought (CoT) kullanılarak ve kullanılmadan** yapılan deney sonuçlarını göstermektedir:
 
 ### 1. CoT Olmadan Sonuçlar:
-![CoT Olmadan](exp-wo-cot.png)
+![CoT Olmadan](misc/experiment-without-cot.jpeg)
 
 ### 2. CoT ile Sonuçlar:
-![CoT ile](exp-cot.png)
+![CoT ile](misc/experiment-with-cot.jpeg)
 
 **Not:** Qwen modeli daha küçük bir parametre sayısına (14B) sahip olmasına rağmen, diğer büyük modellerle kıyaslandığında oldukça etkili sonuçlar vermektedir.
 
