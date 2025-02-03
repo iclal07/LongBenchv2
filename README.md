@@ -27,8 +27,9 @@ Bu sürümde **Gemini2.0 Flash Experimental** ve **Qwen2.5-14B-Instruct-1M** mod
    - **Qwen2.5-14B-Instruct-1M** modeliyle optimizasyonlar yapıldı.
 
 2. **`pred.py` Güncellemeleri:**
-   - Varsayılan olarak `--nproc 16` kullanılmakta. Ancak, API'ye aşırı yüklenmeyi önlemek için `--nproc 2` parametresiyle çalıştırılması önerilir.
-   - API çağrılarında hata durumunda **otomatik yeniden deneme** mekanizması eklendi.
+   - Varsayılan olarak `--nproc 16` kullanılmakta. Ancak, Gemini API'ye aşırı yüklenmeyi önlemek için `--nproc 2` parametresiyle çalıştırılması önerilir.
+   - - **Rastgele bekleme süreleri (random sleep)** eklendi, böylece aşırı yüklenmenin önüne geçilerek API çağrılarının başarısız olma olasılığı azaltıldı.
+
    
 3. **Analiz Çıktıları:**
    - **CoT (Chain-of-Thought) ile ve CoT olmadan** çalıştırılan model sonuçları karşılaştırıldı.
@@ -96,4 +97,3 @@ python pred.py --model qwen --base_url http://custom-url.com/v1
   }
   ```
 
----
