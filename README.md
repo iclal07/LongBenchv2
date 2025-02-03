@@ -1,5 +1,6 @@
 ![](LongBench/misc/logo.gif)
 # 📚 LongBench v2: Towards Deeper Understanding and Reasoning on Realistic Long-context Multitasks
+
 <p align="center">
     🌐 <a href="https://longbench2.github.io" target="_blank">Project Page</a> • 📚 <a href="https://arxiv.org/abs/2412.15204" target="_blank">LongBench v2 Paper</a> • 📊 <a href="https://huggingface.co/datasets/THUDM/LongBench-v2" target="_blank">LongBench v2 Dataset</a> • 𝕏 <a href="https://x.com/realYushiBai/status/1869946577349132766" target="_blank">Thread</a>
 </p>
@@ -7,64 +8,83 @@
     📖 <a href="https://arxiv.org/abs/2308.14508" target="_blank">LongBench Paper</a> • 🤗 <a href="https://huggingface.co/datasets/THUDM/LongBench" target="_blank">LongBench Dataset</a>
 </p>
 
-**📢 The original LongBench v1 related files are moved under `LongBench/`, read its README [here](LongBench/README.md)**.
-
 ---
 
 ## 📌 Proje Açıklaması
-Bu betik, **LongBench** veri kümesi üzerinde çeşitli LLM modelleri kullanarak tahminler çalıştırmak için geliştirilmiştir. OpenAI, Hugging Face ve Gemini modellerini destekler. Ayrıca, bu repoyu fork ederek geliştirdim: [Forklanan Repo](https://github.com/iclal07/LongBenchv2)
+Bu repoyu **LongBench v2** benchmark'ını daha geniş bir model desteğiyle çalıştırmak ve analiz etmek için fork ettim. Bu çalışma, büyük dil modellerinin uzun bağlamlardaki derin anlama ve akıl yürütme yeteneklerini değerlendirmek amacıyla gerçekleştirildi.
+
+Bu sürümde **Gemini2.0 Flash Experimental** ve **Qwen2.5-14B-Instruct-1M** modelleri için destek ekledim. **`pred.py`** dosyasında yaptığım düzenlemeler sayesinde, artık Gemini API'leriyle de uyumlu çalıştırılabilir.
+
+🔗 Orijinal repo: [THUDM/LongBenchv2](https://github.com/THUDM/LongBenchv2)
 
 ---
 
-## ⚙️ Kurulum Adımları
+## ⚙️ Yeni Özellikler ve Güncellemeler
 
-### Gerekli Bağımlılıkları Yükleyin
-```sh
-pip install -r requirements.txt
-```
+### Yeni Eklemeler:
+1. **Genişletilmiş Model Desteği:**
+   - **Gemini2.0 Flash Experimental** modeli için destek eklendi.
+   - **Qwen2.5-14B-Instruct-1M** modeliyle optimizasyonlar yapıldı.
 
-### API Anahtarlarını Ayarlayın
-`.env` dosyanızı oluşturun ve aşağıdaki değişkenleri tanımlayın:
-```env
-API_KEY=your_openai_key
-GEMINI_KEY=your_gemini_key
-HF_TOKEN=your_huggingface_token
-```
+2. **`pred.py` Güncellemeleri:**
+   - Varsayılan olarak `--nproc 16` kullanılmakta. Ancak, API'ye aşırı yüklenmeyi önlemek için `--nproc 2` parametresiyle çalıştırılması önerilir.
+   - API çağrılarında hata durumunda **otomatik yeniden deneme** mekanizması eklendi.
+   
+3. **Analiz Çıktıları:**
+   - **CoT (Chain-of-Thought) ile ve CoT olmadan** çalıştırılan model sonuçları karşılaştırıldı.
 
 ---
 
-## 🚀 Kullanım Talimatları
+## 🔬 Deneysel Analizler
+
+Bu çalışmada **Gemini2.0 Flash Experimental** ve **Qwen2.5-14B-Instruct-1M** modelleri kullanıldı. Aşağıdaki grafikler, **Chain-of-Thought (CoT) kullanılarak ve kullanılmadan** yapılan deney sonuçlarını göstermektedir:
+
+### 1. CoT Olmadan Sonuçlar:
+![CoT Olmadan](exp-wo-cot.png)
+
+### 2. CoT ile Sonuçlar:
+![CoT ile](exp-cot.png)
+
+**Not:** Qwen modeli daha küçük bir parametre sayısına (14B) sahip olmasına rağmen, diğer büyük modellerle kıyaslandığında oldukça etkili sonuçlar vermektedir.
+
+---
+
+## 📊 Performans Tablosu
+
+Aşağıda, LongBench v2 sıralamasına dair güncel performans sonuçları paylaşılmıştır. **Gemini2.0 Flash Experimental**, LongBench v2 liderlik tablosunda etkileyici bir sıralama elde etmiştir.
+
+| Model                     | Params | Context  | Overall (%) | Easy (%) | Hard (%) | Short (%) | Medium (%) | Long (%) |
+|---------------------------|--------|----------|-------------|----------|----------|-----------|------------|----------|
+| Qwen2.5-14B (w/ CoT)     | 14B    | 1M       | 37.4        | 42.8     | 42.7     | 50.8      | 34.1       | 37.9     |
+| Qwen2.5-14B (wo/ CoT)    | 14B    | 1M       | 29.0        | 35.5     | 33.0     | 41.3      | 29.0       | 29.0     |
+| Gemini-2.0-Flash-Exp (w/ CoT) | 14B    | 1M       | 48.6        | 45.7     | 52.5     | 49.4      | 46.2       | 43.4     |
+| Gemini-2.0-Flash-Exp (wo/ CoT)| 14B    | 1M       | 46.6        | 44.6     | 42.3     | 49.8      | 42.3       | 44.6     |
+
+---
+
+## ⚙️ Kullanım Talimatları
 
 ### Temel Kullanım
 ```sh
 python pred.py --model gpt-4 --save_dir results
 ```
 
-### Özel API URL'si Kullanımı
+### Özel Ayarlar
+Gemini ile çalıştırmak için:
+```sh
+python pred.py --model gemini-2.0-flash-exp --nproc 2
+```
+
+Qwen modeli için özel bir API URL'si:
 ```sh
 python pred.py --model qwen --base_url http://custom-url.com/v1
 ```
-
-📌 **Not:** Eğer `--base_url` girilmezse **varsayılan olarak** `http://localhost:8000/v1` kullanılacaktır.
-
----
-
-## 🔧 Parametre Açıklamaları
-
-| Parametre | Açıklama | Varsayılan |
-|-----------|----------|------------|
-| `--base_url` | Kullanılacak API adresi | `http://localhost:8000/v1` |
-| `--model` | Kullanılacak modelin ismi (`gpt-4`, `qwen`, `gemini-2.0-flash-exp` vb.) | `GLM-4-9B-Chat` |
-| `--save_dir` | Sonuçların kaydedileceği dizin | `results` |
-| `--cot` | Chain of Thought (COT) açmak için flag | `False` |
-| `--no_context` | Modelin bağlam kullanmadan çalışmasını sağlamak için flag | `False` |
-| `--rag` | Kaç tane bağlamsal veri kullanılacağını belirtir | `0` |
 
 ---
 
 ## 📁 Çıktılar
 
-- Tahminler `.jsonl` formatında `save_dir` klasörüne kaydedilir.
+- Tahminler `.jsonl` formatında kaydedilir.
 - Çıktı örneği:
   ```json
   {
@@ -77,27 +97,3 @@ python pred.py --model qwen --base_url http://custom-url.com/v1
   ```
 
 ---
-
-## 🔬 Deneysel Analizler
-Bu çalışmada **Gemini2.0 Flash Experimental** ve **Qwen2.5-14B-Instruct-1M** modellerini kullandım ve iki farklı ayar altında sonuçları karşılaştırdım:
-
-### Sonuçlar:
-1. **CoT olmadan yapılan deney:**
-   ![CoT Olmadan](exp-wo-cot.png)
-2. **CoT ile yapılan deney:**
-   ![CoT ile](exp-cot.png)
-
----
-
-## 🛠️ Hata Giderme ve Loglama
-- **Hata Yönetimi:** API çağrılarında hata olursa, 5 defaya kadar tekrar denenir.
-- **Gecikme Mekanizması:** Gemini ve diğer modeller için **1-3 saniyelik rastgele bekleme süresi** eklendi.
-- **Hata mesajları** konsola yazdırılır ve 1 saniye beklenerek tekrar denenir.
-
----
-
-## 📜 Lisans
-MIT Lisansı
-
-
-🔗 **Herhangi bir sorun yaşarsanız, issue açabilirsiniz!** 🚀
